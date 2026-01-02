@@ -1,72 +1,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Something special ✨</title>
+  <title>Happy Birthday ✨</title>
   <style>
     /* ---- Body with starry night background ---- */
     body {
       margin: 0;
-      min-height: 100vh;
       font-family: Arial, sans-serif;
       color: white;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
+      overflow: auto; /* allows scrolling */
+      min-height: 200vh; /* make page tall for scrolling demo */
       background: url("https://raw.githubusercontent.com/BionanophyNerd/Birthday-site/refs/heads/main/assets/starry.jfif") no-repeat top center/cover;
+      background-attachment: fixed; /* keeps background fixed while scrolling */
     }
 
-    /* ---- Content on top of background ---- */
-    .content {
-      position: relative;
-      text-align: center;
-      z-index: 1;
-      margin-top: 50px;
-    }
-
-    h1 {
-      font-size: 40px;
-    }
-
-    #countdown {
-      font-size: 48px;
-      margin-top: 20px;
-      font-weight: bold;
-      color: #ffd700; /* golden */
-      text-shadow: 0 0 10px #fff;
-    }
-
-    /* ---- Falling stars style ---- */
+    /* ---- Falling stars ---- */
     .star {
-      position: absolute;      /* place anywhere on screen */
-      top: -10px;              /* start slightly above viewport */
-      width: 2px;              /* initial size */
+      position: absolute;
+      top: -10px;
+      width: 2px;
       height: 2px;
-      background: white;       /* color of star */
-      border-radius: 50%;      /* circular */
+      background: white;
+      border-radius: 50%;
       opacity: 0.8;
-      animation: fall linear infinite; /* falling animation */
+      animation: fall linear infinite;
     }
 
-    /* ---- Animation for falling stars ---- */
     @keyframes fall {
       to {
-        transform: translateY(100vh) translateX(0); /* fall to bottom */
-        opacity: 0;                                  /* fade out */
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
       }
     }
 
+    /* ---- Content wrapper ---- */
+    .content {
+      position: relative; 
+      text-align: center;
+      z-index: 1;
+      margin-top: 150px; /* moves content down from top */
+    }
+
+    h1 {
+      font-size: 50px;
+      text-shadow: 0 0 20px #ffd700;
+    }
+
+    #countdown {
+      font-size: 60px;
+      font-weight: bold;
+      color: #ffd700; /* golden */
+      text-shadow: 0 0 15px #fff;
+      margin-top: 30px;
+    }
+
+    p {
+      font-size: 24px;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
 
   <div class="content">
-    <h1>Something special is coming ✨</h1>
+    <h1>Happy Birthday! 🎉</h1>
     <div id="countdown"></div>
+    <p>Something special awaits… scroll down!</p>
   </div>
 
-  <!-- ---- JavaScript: Countdown timer ---- -->
+  <!-- ---- Countdown timer ---- -->
   <script>
     const targetTime = new Date("2026-01-05T00:00:00").getTime();
 
@@ -76,10 +78,10 @@
 
       if (diff <= 0) {
         clearInterval(timer);
-        window.location.href = "page2.html"; // redirect to Page 2
+        window.location.href = "page2.html";
       }
 
-      const hours = Math.floor((diff / (1000 * 60 * 60)));
+      const hours = Math.floor(diff / (1000 * 60 * 60));
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
 
@@ -88,15 +90,15 @@
     }, 1000);
   </script>
 
-  <!-- ---- JavaScript: Falling stars ---- -->
+  <!-- ---- Falling stars ---- -->
   <script>
-    const numStars = 100; // number of falling stars
+    const numStars = 100;
     for(let i = 0; i < numStars; i++){
       const star = document.createElement("div");
       star.className = "star";
-      star.style.left = Math.random() * window.innerWidth + "px"; // random horizontal position
-      star.style.animationDuration = 2 + Math.random() * 3 + "s"; // random speed
-      star.style.width = 1 + Math.random() * 3 + "px"; // random size
+      star.style.left = Math.random() * window.innerWidth + "px";
+      star.style.animationDuration = 2 + Math.random() * 3 + "s";
+      star.style.width = 1 + Math.random() * 3 + "px";
       star.style.height = star.style.width;
       document.body.appendChild(star);
     }
