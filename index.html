@@ -9,18 +9,16 @@
   font-family: Arial, sans-serif;
   color: white;
 
-  min-height: 100vh;
+  min-height: 200vh;          /* allow scrolling */
 
   background-image: url("assets/starry.jfif");
-  background-size: contain;   /* keep full image */
-  background-repeat: repeat-y;/* repeat vertically when scrolling */
+  background-size: contain;  /* no cropping */
+  background-repeat: repeat-y;
   background-position: center top;
 
   overflow-x: hidden;
-      min-height: 200vh; /* make page tall for scrolling demo */
-      background: url("https://raw.githubusercontent.com/BionanophyNerd/Birthday-site/refs/heads/main/assets/starry.jfif") no-repeat top center/cover;
-      background-attachment: fixed; /* keeps background fixed while scrolling */
-    }
+}
+
 
     /* ---- Falling stars ---- */
     .star {
