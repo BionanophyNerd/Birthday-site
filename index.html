@@ -4,12 +4,12 @@
   <title>Happy Birthday ✨</title>
 
   <style>
-    /* ---- Body background ---- */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       color: white;
       min-height: 200vh;
+      background-color: black; /* FIX white blank */
       background-image: url("assets/starry.jfif");
       background-size: 100% auto;
       background-repeat: no-repeat;
@@ -17,7 +17,7 @@
       overflow-x: hidden;
     }
 
-    /* ---- Falling stars ---- */
+    /* Falling stars */
     .star {
       position: absolute;
       top: -10px;
@@ -26,6 +26,7 @@
       opacity: 0.8;
       animation: fall linear infinite, sparkle ease-in-out infinite;
       box-shadow: 0 0 5px white, 0 0 10px white;
+      z-index: 1;
     }
 
     @keyframes fall {
@@ -40,34 +41,31 @@
       50% { opacity: 1; }
     }
 
-    /* ---- Content ---- */
+    /* Content block */
     .content {
       position: relative;
       text-align: center;
-      margin-top: 150px;
+      margin-top: 180px; /* moves everything down */
       z-index: 2;
     }
 
     h1 {
-      font-size: 50px;
+      font-size: 48px;
       text-shadow: 0 0 20px #ffd700;
+      margin-bottom: 30px;
     }
 
-    /* ---- Countdown ---- */
+    /* Countdown — NOT absolute anymore */
     #countdown {
-      position: absolute;
-      top: 60%;      /* change THIS to move countdown */
-      left: 50%;
-      transform: translate(-50%, -50%);
       font-size: 64px;
       font-weight: bold;
       color: #ffd700;
       text-shadow: 0 0 15px white;
+      margin-bottom: 20px;
     }
 
     p {
       font-size: 24px;
-      margin-top: 20px;
     }
   </style>
 </head>
@@ -80,14 +78,12 @@
     <p>Something special awaits… scroll down!</p>
   </div>
 
-  <!-- ---- Countdown script (IST safe) ---- -->
+  <!-- Countdown (IST safe) -->
   <script>
-    const targetTime = new Date("2026-01-03T18:30:00Z").getTime(); 
-    // 04 Jan 2026 00:00 IST
+    const targetTime = new Date("2026-01-03T18:30:00Z").getTime();
 
     const timer = setInterval(() => {
-      const now = Date.now();
-      const diff = targetTime - now;
+      const diff = targetTime - Date.now();
 
       if (diff <= 0) {
         clearInterval(timer);
@@ -105,9 +101,9 @@
     }, 1000);
   </script>
 
-  <!-- ---- Falling stars script ---- -->
+  <!-- Falling stars -->
   <script>
-    const numStars = 50;
+    const numStars = 40;
     for (let i = 0; i < numStars; i++) {
       const star = document.createElement("div");
       star.className = "star";
