@@ -2,52 +2,50 @@
 <html>
 <head>
   <title>Happy Birthday ✨</title>
+
   <style>
-    /* ---- Body with starry night background ---- */
+    /* ---- Body background ---- */
     body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  color: white;
-
-  min-height: 200vh;            /* allows scrolling */
-
-  background-image: url("assets/starry.jfif");
-  background-size: 100% auto;   /* fit width, keep aspect ratio */
-  background-repeat: no-repeat; /* no repeating */
-  background-position: top center;
-
-  overflow-x: hidden;
-}
-
-
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      min-height: 200vh;
+      background-image: url("assets/starry.jfif");
+      background-size: 100% auto;
+      background-repeat: no-repeat;
+      background-position: top center;
+      overflow-x: hidden;
+    }
 
     /* ---- Falling stars ---- */
     .star {
-  position: absolute;
-  top: -10px;
-  width: 3px;           /* initial size, overridden by JS randomly */
-  height: 3px;
-  background: white;
-  border-radius: 50%;
-  opacity: 0.8;
-  animation: fall linear infinite;
-  box-shadow: 0 0 5px white, 0 0 10px white; /* sparkle effect */
-}
-
+      position: absolute;
+      top: -10px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: fall linear infinite, sparkle ease-in-out infinite;
+      box-shadow: 0 0 5px white, 0 0 10px white;
+    }
 
     @keyframes fall {
       to {
-        transform: translateY(100vh) translateX(0);
+        transform: translateY(100vh);
         opacity: 0;
       }
     }
 
-    /* ---- Content wrapper ---- */
+    @keyframes sparkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    /* ---- Content ---- */
     .content {
-      position: relative; 
+      position: relative;
       text-align: center;
-      z-index: 1;
-      margin-top: 150px; /* moves content down from top */
+      margin-top: 150px;
+      z-index: 2;
     }
 
     h1 {
@@ -55,12 +53,16 @@
       text-shadow: 0 0 20px #ffd700;
     }
 
+    /* ---- Countdown ---- */
     #countdown {
-      font-size: 60px;
+      position: absolute;
+      top: 60%;      /* change THIS to move countdown */
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 64px;
       font-weight: bold;
-      color: #ffd700; /* golden */
-      text-shadow: 0 0 15px #fff;
-      margin-top: 30px;
+      color: #ffd700;
+      text-shadow: 0 0 15px white;
     }
 
     p {
@@ -69,6 +71,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <div class="content">
@@ -77,57 +80,46 @@
     <p>Something special awaits… scroll down!</p>
   </div>
 
-  <!-- ---- Countdown timer ---- -->
+  <!-- ---- Countdown script (IST safe) ---- -->
   <script>
-    const targetTime = new Date("2026-01-05T00:00:00").getTime();
+    const targetTime = new Date("2026-01-03T18:30:00Z").getTime(); 
+    // 04 Jan 2026 00:00 IST
 
     const timer = setInterval(() => {
-      const now = new Date().getTime();
+      const now = Date.now();
       const diff = targetTime - now;
 
       if (diff <= 0) {
         clearInterval(timer);
-        window.location.href = "page2.html";
+        document.getElementById("countdown").innerHTML = "🎉 IT'S TODAY 🎉";
+        return;
       }
 
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
 
       document.getElementById("countdown").innerHTML =
-        `${hours}h ${minutes}m ${seconds}s`;
+        `${d}d ${h}h ${m}m ${s}s`;
     }, 1000);
   </script>
 
-  <!-- ---- Falling stars ---- -->
-    <script>
-  const numStars = 50; // fewer stars for speed
-  for(let i = 0; i < numStars; i++){
-    const star = document.createElement("div");
-    star.className = "star";
-    star.style.left = Math.random() * window.innerWidth + "px";
-    star.style.width = 3 + Math.random() * 5 + "px";   // random width
-    star.style.height = star.style.width;              // keep circular
-    star.style.opacity = 0.5 + Math.random() * 0.5;   // random opacity
-    star.style.animationDuration = 2 + Math.random() * 4 + "s"; // random speed
-
-    // Random sparkle animation
-    star.style.animationName = "fall, sparkle";
-    star.style.animationTimingFunction = "linear, ease-in-out";
-    star.style.animationIterationCount = "infinite, infinite";
-    star.style.animationDuration = star.style.animationDuration + ", " + (0.5 + Math.random()) + "s";
-
-    document.body.appendChild(star);
-  }
-</script>
-
-<style>
-  @keyframes sparkle {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
-  }
-</style>
-
+  <!-- ---- Falling stars script ---- -->
+  <script>
+    const numStars = 50;
+    for (let i = 0; i < numStars; i++) {
+      const star = document.createElement("div");
+      star.className = "star";
+      const size = 3 + Math.random() * 5;
+      star.style.width = size + "px";
+      star.style.height = size + "px";
+      star.style.left = Math.random() * window.innerWidth + "px";
+      star.style.animationDuration =
+        (2 + Math.random() * 4) + "s, " + (0.5 + Math.random()) + "s";
+      document.body.appendChild(star);
+    }
+  </script>
 
 </body>
 </html>
