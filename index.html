@@ -5,10 +5,18 @@
   <style>
     /* ---- Body with starry night background ---- */
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: white;
-      overflow: auto; /* allows scrolling */
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: white;
+
+  min-height: 100vh;
+
+  background-image: url("assets/starry.jfif");
+  background-size: contain;   /* keep full image */
+  background-repeat: repeat-y;/* repeat vertically when scrolling */
+  background-position: center top;
+
+  overflow-x: hidden;
       min-height: 200vh; /* make page tall for scrolling demo */
       background: url("https://raw.githubusercontent.com/BionanophyNerd/Birthday-site/refs/heads/main/assets/starry.jfif") no-repeat top center/cover;
       background-attachment: fixed; /* keeps background fixed while scrolling */
