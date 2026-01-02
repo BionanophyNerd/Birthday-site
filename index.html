@@ -3,49 +3,60 @@
 <head>
   <title>Something special ✨</title>
   <style>
-    /* Body with starry night background */
+    /* ---- Body with starry night background ---- */
     body {
       margin: 0;
-      height: 100vh;
-      background: url("assets/starry.jfif") no-repeat center center/cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
+      min-height: 100vh;
       font-family: Arial, sans-serif;
+      color: white;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      background: url("https://raw.githubusercontent.com/YOUR_USERNAME/REPO_NAME/main/assets/starry.jfif") no-repeat top center/cover;
     }
 
-    /* Twinkling stars overlay */
-    body::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: url("https://raw.githubusercontent.com/JulianLaval/canvas-particle-network/master/img/stars.png");
-      animation: twinkle 8s linear infinite;
-      opacity: 0.6;
-    }
-
-    @keyframes twinkle {
-      from { transform: translateY(0); }
-      to { transform: translateY(-1000px); }
-    }
-
-    /* Content on top of background */
+    /* ---- Content on top of background ---- */
     .content {
       position: relative;
       text-align: center;
       z-index: 1;
-    }
-
-    #countdown {
-      font-size: 48px;
-      margin-top: 20px;
+      margin-top: 50px;
     }
 
     h1 {
       font-size: 40px;
     }
+
+    #countdown {
+      font-size: 48px;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #ffd700; /* golden */
+      text-shadow: 0 0 10px #fff;
+    }
+
+    /* ---- Falling stars style ---- */
+    .star {
+      position: absolute;      /* place anywhere on screen */
+      top: -10px;              /* start slightly above viewport */
+      width: 2px;              /* initial size */
+      height: 2px;
+      background: white;       /* color of star */
+      border-radius: 50%;      /* circular */
+      opacity: 0.8;
+      animation: fall linear infinite; /* falling animation */
+    }
+
+    /* ---- Animation for falling stars ---- */
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) translateX(0); /* fall to bottom */
+        opacity: 0;                                  /* fade out */
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -55,8 +66,8 @@
     <div id="countdown"></div>
   </div>
 
+  <!-- ---- JavaScript: Countdown timer ---- -->
   <script>
-    // Set your target date/time here
     const targetTime = new Date("2026-01-05T00:00:00").getTime();
 
     const timer = setInterval(() => {
@@ -75,6 +86,20 @@
       document.getElementById("countdown").innerHTML =
         `${hours}h ${minutes}m ${seconds}s`;
     }, 1000);
+  </script>
+
+  <!-- ---- JavaScript: Falling stars ---- -->
+  <script>
+    const numStars = 100; // number of falling stars
+    for(let i = 0; i < numStars; i++){
+      const star = document.createElement("div");
+      star.className = "star";
+      star.style.left = Math.random() * window.innerWidth + "px"; // random horizontal position
+      star.style.animationDuration = 2 + Math.random() * 3 + "s"; // random speed
+      star.style.width = 1 + Math.random() * 3 + "px"; // random size
+      star.style.height = star.style.width;
+      document.body.appendChild(star);
+    }
   </script>
 
 </body>
