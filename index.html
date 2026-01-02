@@ -16,15 +16,17 @@
 
     /* ---- Falling stars ---- */
     .star {
-      position: absolute;
-      top: -10px;
-      width: 2px;
-      height: 2px;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.8;
-      animation: fall linear infinite;
-    }
+  position: absolute;
+  top: -10px;
+  width: 3px;           /* initial size, overridden by JS randomly */
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: fall linear infinite;
+  box-shadow: 0 0 5px white, 0 0 10px white; /* sparkle effect */
+}
+
 
     @keyframes fall {
       to {
@@ -91,18 +93,34 @@
   </script>
 
   <!-- ---- Falling stars ---- -->
-  <script>
-    const numStars = 100;
-    for(let i = 0; i < numStars; i++){
-      const star = document.createElement("div");
-      star.className = "star";
-      star.style.left = Math.random() * window.innerWidth + "px";
-      star.style.animationDuration = 2 + Math.random() * 3 + "s";
-      star.style.width = 1 + Math.random() * 3 + "px";
-      star.style.height = star.style.width;
-      document.body.appendChild(star);
-    }
-  </script>
+    <script>
+  const numStars = 50; // fewer stars for speed
+  for(let i = 0; i < numStars; i++){
+    const star = document.createElement("div");
+    star.className = "star";
+    star.style.left = Math.random() * window.innerWidth + "px";
+    star.style.width = 3 + Math.random() * 5 + "px";   // random width
+    star.style.height = star.style.width;              // keep circular
+    star.style.opacity = 0.5 + Math.random() * 0.5;   // random opacity
+    star.style.animationDuration = 2 + Math.random() * 4 + "s"; // random speed
+
+    // Random sparkle animation
+    star.style.animationName = "fall, sparkle";
+    star.style.animationTimingFunction = "linear, ease-in-out";
+    star.style.animationIterationCount = "infinite, infinite";
+    star.style.animationDuration = star.style.animationDuration + ", " + (0.5 + Math.random()) + "s";
+
+    document.body.appendChild(star);
+  }
+</script>
+
+<style>
+  @keyframes sparkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+</style>
+
 
 </body>
 </html>
